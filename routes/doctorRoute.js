@@ -12,8 +12,8 @@ const doctorRouter = express.Router();
 
 doctorRouter.post("/signup", signup);
 doctorRouter.post("/login", login);
-doctorRouter.patch("/update/:id", updateDoctor);
-doctorRouter.delete("/delete/:id", deleteDoctor);
+doctorRouter.patch("/update/:id", verifyToken ,updateDoctor); // 
+doctorRouter.delete("/delete/:id",verifyToken, deleteDoctor); //
 doctorRouter.get("/appointments",verifyToken ,getall);
 
 module.exports = doctorRouter;
