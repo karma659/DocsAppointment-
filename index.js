@@ -52,17 +52,15 @@ app.use("/doctor", doctorRouter);
 app.use("/appointment", appointmentRouter);
 app.use("/admin", adminRouter);
 
+
 io.on("connection", socket => {
-   // socket.emit("me", socket.id);
 
    socket.on("createSocketId", async ({data}) => {
       // Generate a socket ID for the user
       var socketId = socket.id;
-
       // Save the socket ID in the database based on the user's role
-      if(data){
       if (data.role === "patient") {
-         console.log("patient");
+         console.log("patient",socketId);
 
          const payload = {
             patientID: socketId
@@ -89,10 +87,10 @@ io.on("connection", socket => {
 
       // Send the socket ID back to the client
       socket.emit("socketIdCreated", {socketId});
-   }
+   
 });
 
-   socket.on("disconnect", () => {
+   socket.on("hangUp", () => {
       socket.broadcast.emit("callEnded");
    });
 
@@ -105,6 +103,14 @@ io.on("connection", socket => {
       console.log("answerCall", data);
       io.to(data.to).emit("callAccepted", data.signal);
    });
+
+
+    // Close the socket.io connection
+  socket.on('closeConnection', () => {
+   socket.disconnect();
+ });
+
+
 });
 
 server.listen(port, () => console.log(`Server is running on port ${port}`));

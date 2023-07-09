@@ -24,11 +24,13 @@ const appointmentSchema = new mongoose.Schema({
       type: Boolean,
       default: false
    },
-   patientID:{
-      type:String
+   patientID: {
+      type: String,
+      
    },
-   doctorID:{
-      type:String
+   doctorID: {
+      type: String,
+  
    }
 });
 

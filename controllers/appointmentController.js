@@ -2,7 +2,7 @@ const express = require("express");
 
 const {Appointment} = require("../models/appointmentschema");
 const {Doctor} = require("../models/doctorSchema");
-const { VideoCall } = require("../models/videoCallSchema");
+const {VideoCall} = require("../models/videoCallSchema");
 
 //Get all appointment
 const getall = async (req, res) => {
@@ -64,7 +64,7 @@ const update = async (req, res) => {
       // Find the doctor associated with the appointment
       const appointment = await Appointment.findById(ID);
       const doctorId = appointment.doctor;
- 
+
       res.status(201).send({message: "Appointment modified"});
    } catch (err) {
       console.log(err);
@@ -91,35 +91,30 @@ const deleteA = async (req, res) => {
    }
 };
 
-
-// get socket Id appointment 
+// get socket Id appointment
 const getSocketId = async (req, res) => {
-     
    const ID = req.params.id;
    try {
       const appointment = await Appointment.findById(ID);
-   
+      // console.log("appointment ", appointment);
       const patientId = appointment.patientID;
-      const doctorId = appointment.doctorID;
-
-      console.log("ids ",patientId,doctorId);
-      const data={
-         patientId:patientId,
-         doctorId:doctorId
-      }
-      res.status(200).send(data);
-
+      const doctorId = appointment.doctorID;  
+      const data = {
+         patientId: patientId,
+         doctorId: doctorId
+      };
+      console.log("patient doctor ids ", data);
+      res.status(201).send(data);
    } catch (err) {
       console.log(err);
       res.send({message: "error"});
    }
 };
 
-
 module.exports = {
    getall: getall,
    create: create,
    update: update,
    deleteA: deleteA,
-   getSocketId:getSocketId
+   getSocketId: getSocketId
 };

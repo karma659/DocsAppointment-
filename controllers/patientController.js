@@ -79,7 +79,7 @@ const getall = async (req, res) => {
    const ID = req.userId;
    try {
       let data = await Appointment.find({patient: ID}).populate("doctor");
-      console.log("data ", data);
+
 
       res.status(200).send({Appointments: data});
    } catch (err) {
