@@ -26,19 +26,19 @@ connectDb();
 var port = process.env.PORT || 5000;
 
 //  const dirname = path.resolve();
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "/uploads")));a
 
-if (process.env.NODE_ENV === "production") {
-   app.use(express.static(path.join(__dirname, "/frontend/build")));
-   console.log("production");
-   app.get("/", (req, res) =>
-      res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
-   );
-} else {
+// if (process.env.NODE_ENV === "production") {
+//    app.use(express.static(path.join(__dirname, "/frontend/build")));
+//    console.log("production");
+//    app.get("/", (req, res) =>
+//       res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+//    );
+// } else {
    app.get("/", (req, res) => {
       res.send("API is running....");
    });
-}
+//}
 
 const adminRouter = require("./routes/adminRoute");
 const doctorRouter = require("./routes/doctorRoute");

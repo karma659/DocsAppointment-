@@ -1,6 +1,6 @@
 {
    "name": "frontend",
-   "proxy": "https://appointment-karma659.vercel.app",
+   "proxy": "https://app-backend-q3hp.onrender.com/",
    "version": "0.1.0",
    "private": true,
    "dependencies": {

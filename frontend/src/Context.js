@@ -5,8 +5,10 @@ import Peer from "simple-peer";
 const SocketContext = createContext();
 
 // const socket = io("http://127.0.0.1:5000");
-const socket = io();
 
+const socket = io("https://app-backend-q3hp.onrender.com/", {
+   transports: ["websocket"]
+});
 const ContextProvider = ({data, children}) => {
    const [callAccepted, setCallAccepted] = useState(false);
    const [callEnded, setCallEnded] = useState(false);
