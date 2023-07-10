@@ -40,14 +40,21 @@ const DoctorScreen = () => {
       
       }
 
+      const handleLogout = () => {
+       
+         Cookies.remove("token"); 
+
+         navigate("/");
+      };
+
    return (
       <div>
          <nav className="flex justify-between items-center shadow py-4 px-8">
             <div className=" text-2xl font-bold"> My appoinments </div>
             <div>
-               <Link to={"/"}>
-                  <button className="border border-black  py-2 px-4 ">Logout</button>
-               </Link>
+         
+                  <button className="border border-black  py-2 px-4 " onClick={handleLogout}>Logout</button>
+             
             </div>
          </nav>
 

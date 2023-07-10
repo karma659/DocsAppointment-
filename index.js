@@ -30,7 +30,7 @@ app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 if (process.env.NODE_ENV === "production") {
    app.use(express.static(path.join(__dirname, "/frontend/build")));
-
+   console.log("production");
    app.get("/", (req, res) =>
       res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
    );
@@ -45,50 +45,47 @@ const doctorRouter = require("./routes/doctorRoute");
 const patientRouter = require("./routes/patientRoute");
 const appointmentRouter = require("./routes/appointmentRoute");
 const {VideoCall} = require("./models/videoCallSchema");
-const { Appointment } = require("./models/appointmentschema");
+const {Appointment} = require("./models/appointmentschema");
 
 app.use("/patient", patientRouter);
 app.use("/doctor", doctorRouter);
 app.use("/appointment", appointmentRouter);
 app.use("/admin", adminRouter);
 
-
 io.on("connection", socket => {
-
    socket.on("createSocketId", async ({data}) => {
       // Generate a socket ID for the user
       var socketId = socket.id;
       // Save the socket ID in the database based on the user's role
-      if (data.role === "patient") {
-         console.log("patient",socketId);
+      if (data) {
+         if (data.role === "patient") {
+            console.log("patient", socketId);
 
-         const payload = {
-            patientID: socketId
-         };
-         try{
-         await Appointment.findByIdAndUpdate({_id: data.appointmentId}, payload);
+            const payload = {
+               patientID: socketId
+            };
+            try {
+               await Appointment.findByIdAndUpdate({_id: data.appointmentId}, payload);
+            } catch (err) {
+               console.log("ERROR DB", err);
+            }
+         } else if (data.role === "doctor") {
+            console.log("appointment id ", data.appointmentId);
+
+            const payload = {
+               doctorID: socketId
+            };
+            try {
+               await Appointment.findByIdAndUpdate({_id: data.appointmentId}, payload);
+            } catch (err) {
+               console.log("ERROR DB", err);
+            }
          }
-         catch(err){
-            console.log("ERROR DB",err)
-         }
-      } else if (data.role === "doctor") {
-         console.log("appointment id ", data.appointmentId);
 
-         const payload = {
-            doctorID: socketId
-         };
-         try{
-         await Appointment.findByIdAndUpdate({_id: data.appointmentId}, payload);
+         // Send the socket ID back to the client
+         socket.emit("socketIdCreated", {socketId});
       }
-      catch(err){
-         console.log("ERROR DB",err)
-      }
-      }
-
-      // Send the socket ID back to the client
-      socket.emit("socketIdCreated", {socketId});
-   
-});
+   });
 
    socket.on("hangUp", () => {
       socket.broadcast.emit("callEnded");
@@ -104,13 +101,10 @@ io.on("connection", socket => {
       io.to(data.to).emit("callAccepted", data.signal);
    });
 
-
-    // Close the socket.io connection
-  socket.on('closeConnection', () => {
-   socket.disconnect();
- });
-
-
+   // Close the socket.io connection
+   socket.on("closeConnection", () => {
+      socket.disconnect();
+   });
 });
 
 server.listen(port, () => console.log(`Server is running on port ${port}`));

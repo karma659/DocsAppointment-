@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import DoctorCard from "../../components/DoctorCard";
 
 const PatientScreen = () => {
+   const navigate=useNavigate();
    const [Cards, setCards] = useState([]);
    const [loading, setLoading] = useState(true);
 
@@ -33,7 +34,11 @@ const PatientScreen = () => {
    useEffect(() => {
       fetchData();
    }, []);
+   const handleLogout = () => {
+      Cookies.remove("token");
 
+      navigate("/");
+   };
    return (
       <div className=" ">
          <nav className="flex justify-between items-center shadow py-4 px-8">
@@ -42,9 +47,9 @@ const PatientScreen = () => {
                <Link to={"/patientallapp"}>
                   <button className=" border border-black  py-2 px-4 mr-4">My Appointments</button>
                </Link>
-               <Link to={"/"}>
-                  <button className="border border-black  py-2 px-4 ">Logout</button>
-               </Link>
+              
+                  <button className="border border-black  py-2 px-4 " onClick={handleLogout}>Logout</button>
+           
             </div>
          </nav>
 

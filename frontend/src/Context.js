@@ -3,7 +3,9 @@ import {io} from "socket.io-client";
 import Peer from "simple-peer";
 
 const SocketContext = createContext();
-const socket = io("http://localhost:5000");
+
+// const socket = io("http://127.0.0.1:5000");
+const socket = io();
 
 const ContextProvider = ({data, children}) => {
    const [callAccepted, setCallAccepted] = useState(false);
@@ -44,7 +46,6 @@ const ContextProvider = ({data, children}) => {
          // } else if (data.role === "doctor") {
          //    window.location.href = "/doctorScreen";
          // }
-       
       };
    }, []);
 

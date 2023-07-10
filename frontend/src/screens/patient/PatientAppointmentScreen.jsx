@@ -108,14 +108,17 @@ const PatientAppointmentScreen = () => {
          console.log(" error ", error);
       }
    };
-
+   const handleLogout = () => {
+      Cookies.remove("token");
+      navigate("/");
+   };
    return (
       <div>
          <div className=" bg-white pl-20 pr-20 pt-2 pb-2 mb-5 fixed w-screen expand-lg h-[50px] flex flex-row-reverse ">
             <div>
-               <Link to={"/"}>
-                  <button className=" border-2 border-black p-2 ml-5">Logout</button>
-               </Link>
+               <button className=" border-2 border-black p-2 ml-5" onClick={handleLogout}>
+                  Logout
+               </button>
             </div>
             <div>
                <Link to={"/patientScreen"}>

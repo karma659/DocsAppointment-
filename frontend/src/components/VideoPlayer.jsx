@@ -15,7 +15,7 @@ const VideoPlayer = () => {
             </div>
          )}
          {callAccepted && !callEnded && (
-            <div className="flex flex-col w-[30%] ">
+            <div className="flex flex-col w-[30%] ml-10">
                <h1>{call.name || "Name"}</h1>
                <video playsInline ref={userVideo} autoPlay className="w-50 m-2" />
             </div>

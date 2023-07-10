@@ -1,10 +1,10 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import React, {useEffect, useState} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Patientallapp = () => {
-   const navigate=useNavigate();
+   const navigate = useNavigate();
    const [Cards, setCards] = useState([]);
    const [loading, setLoading] = useState(true);
 
@@ -31,15 +31,19 @@ const Patientallapp = () => {
       fetchData();
    }, []);
 
-const handleclick=(id)=>{
-const data={
-   appointmentId:id,
-   role:"patient"
-}
-navigate("/Video",{state:data})
+   const handleclick = id => {
+      const data = {
+         appointmentId: id,
+         role: "patient"
+      };
+      navigate("/Video", {state: data});
+   };
 
-}
+   const handleLogout = () => {
+      Cookies.remove("token");
 
+      navigate("/");
+   };
 
    return (
       <div>
@@ -47,11 +51,11 @@ navigate("/Video",{state:data})
             <div className=" text-2xl font-bold"> My appoinments </div>
             <div>
                <Link to={"/patientScreen"}>
-                  <button className=" border border-black  py-2 px-4 mr-4">Doctors</button>
+                  <button className=" border border-black  py-2 px-4 mr-4">Doctors </button>
                </Link>
-               <Link to={"/"}>
-                  <button className="border border-black  py-2 px-4 ">Logout</button>
-               </Link>
+       
+                  <button className="border border-black  py-2 px-4 " onClick={handleLogout}>Logout</button>
+         
             </div>
          </nav>
 
@@ -70,7 +74,9 @@ navigate("/Video",{state:data})
                      <h1>Date : {card.date} </h1>
                      <h1>Time : {card.time} </h1>
                      <h1>VideoConsultation : {card.isVideoConsultation ? "True" : "False"} </h1>
-                     <button className="bg-green-400 p-2 " onClick={()=>handleclick(card._id)}>Call</button>
+                     <button className="bg-green-400 p-2 " onClick={() => handleclick(card._id)}>
+                        Call
+                     </button>
                   </div>
                ))}
             </div>
