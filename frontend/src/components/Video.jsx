@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+
 import VideoPlayer from "./VideoPlayer";
 import Sidebar from "./Sidebar";
 import Notifications from "./Notifications";
 import {ContextProvider} from "../Context";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 
 const Video = () => {

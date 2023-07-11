@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
+import { BACKEND_URL } from "../../config";
 
 const AdminScreen = () => {
    const navigate = useNavigate();
@@ -12,7 +13,7 @@ const AdminScreen = () => {
 
    const fetchData = async () => {
       try {
-         const response = await axios.get(`/appointment/`, {
+         const response = await axios.get(`${BACKEND_URL}/appointment/`, {
             headers: {
                Authorization: `Bearer ${token}`
             }
@@ -36,7 +37,7 @@ const AdminScreen = () => {
 
    const handleDelete = async Id => {
       try {
-         const response = await axios.delete(`/appointment/delete/${Id}`, {
+         const response = await axios.delete(`${BACKEND_URL}/appointment/delete/${Id}`, {
             headers: {
                Authorization: `Bearer ${token}`
             }

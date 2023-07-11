@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
+import { BACKEND_URL } from "../config";
 
 const Signup = () => {
    const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Signup = () => {
       e.preventDefault();
 
       try {
-         const response = await axios.post(`/${role}/signup`, {
+         const response = await axios.post(`${BACKEND_URL}/${role}/signup`, {
             name: username,
             email: email,
             password: password

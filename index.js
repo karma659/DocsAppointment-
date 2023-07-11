@@ -7,15 +7,36 @@ var connectDb = require("./models/connectionDB");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const https = require("https");
+const fs = require("fs");
 
 var app = express();
-const server = require("http").createServer(app);
+const dirname = path.resolve();
+// Load SSL certificate and key
+
+const privateKey = fs.readFileSync(path.join(dirname, "cert", "key.pem"));
+
+const certificate = fs.readFileSync(path.join(dirname, "cert", "cert.pem"));
+const credentials = {
+   key: privateKey,
+   cert: certificate
+};
+
+// Create HTTPS server
+const server = https.createServer(credentials, app);
 const io = require("socket.io")(server, {
    cors: {
       origin: "*",
       methods: ["GET", "POST"]
    }
 });
+// const server = require("http").createServer(app);
+// const io = require("socket.io")(server, {
+//    cors: {
+//       origin: "*",
+//       methods: ["GET", "POST"]
+//    }
+// });
 app.use(cors());
 
 app.use(cookieParser());
@@ -25,7 +46,6 @@ dotenv.config();
 connectDb();
 var port = process.env.PORT || 5000;
 
-//  const dirname = path.resolve();
 // app.use("/uploads", express.static(path.join(__dirname, "/uploads")));a
 
 // if (process.env.NODE_ENV === "production") {
@@ -35,9 +55,9 @@ var port = process.env.PORT || 5000;
 //       res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
 //    );
 // } else {
-   app.get("/", (req, res) => {
-      res.send("API is running....");
-   });
+app.get("/", (req, res) => {
+   res.send("API is running....");
+});
 //}
 
 const adminRouter = require("./routes/adminRoute");

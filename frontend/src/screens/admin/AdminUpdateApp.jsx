@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {useEffect, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
+import { BACKEND_URL } from "../../config";
 
 const AdminUpdateApp = () => {
    const navigate = useNavigate();
@@ -91,7 +92,7 @@ const AdminUpdateApp = () => {
             console.log("data", data);
             var token = Cookies.get("token");
 
-            const response = await axios.patch(`/appointment/update/${dat._id}`, data, {
+            const response = await axios.patch(`${BACKEND_URL}/appointment/update/${dat._id}`, data, {
                headers: {
                   Authorization: `Bearer ${token}`
                }

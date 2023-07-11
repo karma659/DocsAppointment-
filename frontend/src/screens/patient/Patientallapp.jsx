@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
+import { BACKEND_URL } from "../../config";
 
 const Patientallapp = () => {
    const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Patientallapp = () => {
          var token = Cookies.get("token");
 
          console.log("token", token);
-         const response = await axios.get(`patient/appointments`, {
+         const response = await axios.get(`${BACKEND_URL}/patient/appointments`, {
             headers: {
                Authorization: `Bearer ${token}`
             }

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
+import { BACKEND_URL } from  "../config";
 
 const Login = () => {
    const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Login = () => {
 
       console.log(role);
       try {
-         const response = await axios.post(`/${role}/login`, {
+         const response = await axios.post(`${BACKEND_URL}/${role}/login`, {
             email: email,
             password: password
          });

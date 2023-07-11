@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {useEffect, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
+import { BACKEND_URL } from "../../config";
 
 const AdminCreateApp = () => {
    const navigate = useNavigate();
@@ -91,7 +92,7 @@ const AdminCreateApp = () => {
             console.log("data", data);
             var token = Cookies.get("token");
 
-            const response = await axios.post(`/appointment/create`, data, {
+            const response = await axios.post(`${BACKEND_URL}/appointment/create`, data, {
                headers: {
                   Authorization: `Bearer ${token}`
                }

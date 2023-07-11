@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
+import { BACKEND_URL } from "../../config";
 
 const AdminPatientDoctor = () => {
    const navigate = useNavigate();
@@ -16,12 +17,12 @@ const AdminPatientDoctor = () => {
 
    const fetchData = async () => {
       try {
-         const response = await axios.get(`/admin/patients`, {
+         const response = await axios.get(`${BACKEND_URL}/admin/patients`, {
             headers: {
                Authorization: `Bearer ${token}`
             }
          });
-         const response1 = await axios.get(`/admin/doctors`, {
+         const response1 = await axios.get(`${BACKEND_URL}/admin/doctors`, {
             headers: {
                Authorization: `Bearer ${token}`
             }

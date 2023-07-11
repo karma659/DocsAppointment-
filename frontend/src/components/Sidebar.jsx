@@ -4,6 +4,7 @@ import axios from "axios";
 
 import {SocketContext} from "../Context";
 import Cookies from "js-cookie";
+import { BACKEND_URL } from "../config";
 
 const Sidebar = ({data, children}) => {
    const {me, callAccepted, name, callEnded, leaveCall, callUser, stream} =
@@ -14,7 +15,7 @@ const Sidebar = ({data, children}) => {
    const fetchdata = async () => {
       var token = Cookies.get("token");
       console.log(token, data);
-      const response = await axios.get(`/appointment/video/${data.appointmentId}`);
+      const response = await axios.get(`${BACKEND_URL}/appointment/video/${data.appointmentId}`);
       console.log("response ", response.data);
 
       if (data.role === "doctor") {

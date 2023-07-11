@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import DoctorCard from "../../components/DoctorCard";
+import { BACKEND_URL } from "../../config";
 
 const PatientScreen = () => {
    const navigate=useNavigate();
@@ -15,7 +16,7 @@ const PatientScreen = () => {
 
          console.log("token", token);
          const response = await axios.get(
-            `/patient/dashboard`
+            `${BACKEND_URL}/patient/dashboard`
             , {
                  headers: {
                     Authorization: `Bearer ${token}`
