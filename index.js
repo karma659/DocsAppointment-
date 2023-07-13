@@ -23,20 +23,20 @@ const credentials = {
 };
 
 // Create HTTPS server
-const server = https.createServer(credentials, app);
-const io = require("socket.io")(server, {
-   cors: {
-      origin: "*",
-      methods: ["GET", "POST"]
-   }
-});
-// const server = require("http").createServer(app);
+// const server = https.createServer(credentials, app);
 // const io = require("socket.io")(server, {
 //    cors: {
 //       origin: "*",
 //       methods: ["GET", "POST"]
 //    }
 // });
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, {
+   cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+   }
+});
 app.use(cors());
 
 app.use(cookieParser());

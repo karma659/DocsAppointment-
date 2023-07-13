@@ -6,7 +6,7 @@ const SocketContext = createContext();
 
 // const socket = io("http://127.0.0.1:5000");
 
-const socket = io("https://app-backend-q3hp.onrender.com/", {
+const socket = io("http://localhost:5000", {
    transports: ["websocket"]
 });
 const ContextProvider = ({data, children}) => {
@@ -37,7 +37,6 @@ const ContextProvider = ({data, children}) => {
       });
 
       socket.on("callUser", ({from, name: callerName, signal}) => {
-         console.log("callUser", from, callerName, signal);
          setCall({isReceivingCall: true, from, name: callerName, signal});
       });
 
@@ -57,11 +56,15 @@ const ContextProvider = ({data, children}) => {
       const peer = new Peer({initiator: false, trickle: false, stream});
 
       peer.on("signal", data => {
+         console.log("answercall s ",data)
          socket.emit("answerCall", {signal: data, to: call.from});
       });
 
       peer.on("stream", currentStream => {
+         if(userVideo.current){
+         console.log("answercall",currentStream)
          userVideo.current.srcObject = currentStream;
+         }
       });
 
       peer.signal(call.signal);
@@ -69,6 +72,7 @@ const ContextProvider = ({data, children}) => {
       connectionRef.current = peer;
    };
 
+   
    const callUser = id => {
       const peer = new Peer({initiator: true, trickle: false, stream});
 
@@ -77,7 +81,9 @@ const ContextProvider = ({data, children}) => {
       });
 
       peer.on("stream", currentStream => {
-         if (userVideo.current) {
+         
+         if(userVideo.current){
+            console.log("calluser",currentStream)
             userVideo.current.srcObject = currentStream;
          }
       });
