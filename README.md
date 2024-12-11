@@ -29,8 +29,7 @@ To run locally ->
 ![Screenshot (51)](https://github.com/karma659/DocsAppointment-/blob/main/uploads/pba.PNG)
 #### # Patient all appointments
 ![Screenshot (51)](https://github.com/karma659/DocsAppointment-/blob/main/uploads/pa.PNG)
-#### # Patient video calling to the appointments doctor
-![Screenshot (51)](https://github.com/karma659/DocsAppointment-/blob/main/uploads/pv.PNG)
+
 
 
 ##  Doctor Screens
@@ -39,8 +38,7 @@ To run locally ->
 ![Screenshot (12)](https://github.com/karma659/DocsAppointment-/blob/main/uploads/d.PNG)
 #### # Doctor appointments dashboard
 ![Screenshot (51)](https://github.com/karma659/DocsAppointment-/blob/main/uploads/da.PNG)
-#### # Doctor video calling to the appointments patient 
-![Screenshot (51)](https://github.com/karma659/DocsAppointment-/blob/main/uploads/dv.PNG)
+
 
 ##  Admin Screens
 
